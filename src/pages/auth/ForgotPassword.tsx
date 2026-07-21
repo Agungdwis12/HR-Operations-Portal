@@ -32,7 +32,7 @@ export const ForgotPassword: React.FC = () => {
     try {
       await forgotPassword(data.email);
       toast.success('6-Digit Verification OTP sent to your email!');
-      navigate('/verify-otp');
+      navigate('/auth/verify-otp');
     } catch {
       toast.error('Error sending reset link.');
     }
@@ -42,7 +42,7 @@ export const ForgotPassword: React.FC = () => {
     <div className="w-full max-w-md mx-auto space-y-6">
       <div>
         <Link
-          to="/login"
+          to="/auth/login"
           className="inline-flex items-center text-xs font-semibold text-blue-400 hover:underline mb-3"
         >
           <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back to Login

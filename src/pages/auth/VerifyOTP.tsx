@@ -42,7 +42,7 @@ export const VerifyOTP: React.FC = () => {
     const isValid = await verifyOTP(fullOtp);
     if (isValid) {
       toast.success('OTP verified successfully!');
-      navigate('/reset-password');
+      navigate('/auth/reset-password');
     } else {
       toast.error('Invalid OTP code');
     }
@@ -57,7 +57,7 @@ export const VerifyOTP: React.FC = () => {
     <div className="w-full max-w-md mx-auto space-y-6">
       <div>
         <Link
-          to="/forgot-password"
+          to="/auth/forgot-password"
           className="inline-flex items-center text-xs font-semibold text-blue-400 hover:underline mb-3"
         >
           <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back

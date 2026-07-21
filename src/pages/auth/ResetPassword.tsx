@@ -55,7 +55,7 @@ export const ResetPassword: React.FC = () => {
     try {
       await resetPassword(data.password);
       toast.success('Password updated successfully! Please sign in.');
-      navigate('/login');
+      navigate('/auth/login');
     } catch {
       toast.error('Failed to reset password.');
     }
@@ -65,7 +65,7 @@ export const ResetPassword: React.FC = () => {
     <div className="w-full max-w-md mx-auto space-y-6">
       <div>
         <Link
-          to="/login"
+          to="/auth/login"
           className="inline-flex items-center text-xs font-semibold text-blue-400 hover:underline mb-3"
         >
           <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back to Login

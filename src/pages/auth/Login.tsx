@@ -113,7 +113,7 @@ export const Login: React.FC = () => {
             <span>Remember me for 30 days</span>
           </label>
           <Link
-            to="/forgot-password"
+            to="/auth/forgot-password"
             className="text-blue-400 font-medium hover:underline hover:text-blue-300"
           >
             Forgot password?
@@ -188,7 +188,7 @@ export const Login: React.FC = () => {
       {/* Footer Link */}
       <p className="text-center text-xs text-slate-400 pt-2">
         Don&apos;t have an employee account?{' '}
-        <Link to="/register" className="text-blue-400 font-bold hover:underline">
+        <Link to="/auth/register" className="text-blue-400 font-bold hover:underline">
           Request Registration
         </Link>
       </p>

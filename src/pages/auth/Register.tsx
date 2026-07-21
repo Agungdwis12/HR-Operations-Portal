@@ -204,7 +204,7 @@ export const Register: React.FC = () => {
 
       <p className="text-center text-xs text-slate-400 pt-1">
         Already registered?{' '}
-        <Link to="/login" className="text-blue-400 font-bold hover:underline">
+        <Link to="/auth/login" className="text-blue-400 font-bold hover:underline">
           Back to Login
         </Link>
       </p>

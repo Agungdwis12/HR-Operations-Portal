@@ -78,6 +78,13 @@ export const App: React.FC = () => {
               <Route path="reset-password" element={<ResetPassword />} />
             </Route>
 
+            {/* Direct Shortcuts for Auth Routes */}
+            <Route path="/login" element={<Navigate to="/auth/login" replace />} />
+            <Route path="/register" element={<Navigate to="/auth/register" replace />} />
+            <Route path="/forgot-password" element={<Navigate to="/auth/forgot-password" replace />} />
+            <Route path="/verify-otp" element={<Navigate to="/auth/verify-otp" replace />} />
+            <Route path="/reset-password" element={<Navigate to="/auth/reset-password" replace />} />
+
             {/* Protected Dashboard Layout Routes */}
             <Route
               element={
