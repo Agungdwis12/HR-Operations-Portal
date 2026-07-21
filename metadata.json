@@ -1,0 +1,6 @@
+{
+  "name": "Enterprise Employee Management System",
+  "description": "Enterprise-grade HR & Employee Management System (EMS) SaaS platform with authentication, interactive analytics, employee directory, payroll, attendance, leave management, and dark/light themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
