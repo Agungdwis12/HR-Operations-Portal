@@ -83,7 +83,7 @@ const CostDashboard: React.FC = () => {
           ==================================================== */}
           <div className="w-full bg-white">
             <iframe
-              src="https://datastudio.google.com/embed/reporting/a1a450cd-df69-4f07-986e-5d8f9618a6cd/page/od89F"
+              src="https://datastudio.google.com/embed/reporting/df83f723-a254-47a3-902b-70ed803fd135/page/od89F"
               title="Realisasi, Target & Cost Payroll"
               className="block w-full border-0"
               style={{
