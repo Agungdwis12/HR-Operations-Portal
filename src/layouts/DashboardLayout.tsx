@@ -17,27 +17,17 @@ export const DashboardLayout: React.FC = () => {
         toastOptions={{
           duration: 3500,
           style: {
-            background: 'var(--toast-bg, #1e293b)',
-            color: '#fff',
-            borderRadius: '12px',
-            fontSize: '13px',
+            background: "var(--toast-bg, #1e293b)",
+            color: "#fff",
+            borderRadius: "12px",
+            fontSize: "13px",
           },
         }}
       />
 
-      <Sidebar
-        isCollapsed={isSidebarCollapsed}
-        onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-        isOpenMobile={isMobileSidebarOpen}
-        onCloseMobile={() => setIsMobileSidebarOpen(false)}
-      />
+      <Sidebar isCollapsed={isSidebarCollapsed} onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)} isOpenMobile={isMobileSidebarOpen} onCloseMobile={() => setIsMobileSidebarOpen(false)} />
 
-      <div
-        className={cn(
-          'flex-1 flex flex-col transition-all duration-300 min-h-screen',
-          isSidebarCollapsed ? 'lg:pl-20' : 'lg:pl-64'
-        )}
-      >
+      <div className={cn("flex-1 flex flex-col transition-all duration-300 min-h-screen", isSidebarCollapsed ? "lg:pl-20" : "lg:pl-64")}>
         <Navbar onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)} />
 
         <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl w-full mx-auto">
@@ -46,11 +36,17 @@ export const DashboardLayout: React.FC = () => {
         </main>
 
         <footer className="py-4 px-6 border-t border-slate-200/60 dark:border-slate-800/60 text-center text-xs text-slate-500 dark:text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>© 2026 Nexus Corp Enterprise EMS. All rights reserved.</p>
+          <p>© 2026 Perusahaan Indonesia. Semua hak dilindungi.</p>
           <div className="flex items-center space-x-4">
-            <a href="#privacy" className="hover:underline">Privacy Policy</a>
-            <a href="#terms" className="hover:underline">Terms of Service</a>
-            <a href="#support" className="hover:underline">HR Helpdesk</a>
+            <a href="#privacy" className="hover:underline">
+              Kebijakan Privasi
+            </a>
+            <a href="#terms" className="hover:underline">
+              Syarat & Ketentuan
+            </a>
+            <a href="#support" className="hover:underline">
+              Bantuan HR
+            </a>
           </div>
         </footer>
       </div>

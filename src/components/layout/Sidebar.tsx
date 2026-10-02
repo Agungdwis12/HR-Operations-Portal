@@ -1,27 +1,11 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import {
-  LayoutDashboard,
-  Users,
-  Building2,
-  CalendarCheck,
-  CreditCard,
-  CalendarDays,
-  TrendingUp,
-  BarChart3,
-  Calendar,
-  MessageSquare,
-  Bell,
-  Settings,
-  User,
-  LogOut,
-  ChevronLeft,
-  ChevronRight,
-  ShieldCheck,
-  Building,
-} from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
-import { cn } from '../../utils/cn';
+import React from "react";
+
+import { NavLink, useNavigate } from "react-router-dom";
+
+import { LayoutDashboard, FileText, Wallet, Settings, User, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
+
+import { useAuth } from "../../context/AuthContext";
+import { cn } from "../../utils/cn";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -30,109 +14,179 @@ interface SidebarProps {
   onCloseMobile: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
-  isCollapsed,
-  onToggleCollapse,
-  isOpenMobile,
-  onCloseMobile,
-}) => {
+export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse, isOpenMobile, onCloseMobile }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const role = user?.role || 'Admin';
+  const role = user?.role || "Admin";
+
+  // =========================================================
+  // MAIN DASHBOARD MENU
+  // =========================================================
 
   const allNavItems = [
-    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Employees', path: '/employees', icon: Users, badge: '100', roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Departments', path: '/departments', icon: Building2, badge: '10', roles: ['Admin', 'HR Manager', 'Department Head'] },
-    { name: 'Attendance', path: '/attendance', icon: CalendarCheck, roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Payroll', path: '/payroll', icon: CreditCard, roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Leave', path: '/leaves', icon: CalendarDays, badge: '2 Pending', roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Performance', path: '/performance', icon: TrendingUp, roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Reports', path: '/reports', icon: BarChart3, roles: ['Admin', 'HR Manager', 'Department Head'] },
-    { name: 'Calendar', path: '/calendar', icon: Calendar, roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Messages', path: '/messages', icon: MessageSquare, badge: '2', roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
-    { name: 'Notifications', path: '/notifications', icon: Bell, badge: '4', roles: ['Admin', 'HR Manager', 'Department Head', 'Employee'] },
+    {
+      name: "Kinerja Layanan Divisi",
+      path: "/dashboard/payroll",
+      icon: LayoutDashboard,
+      roles: ["Admin", "HR Manager", "Department Head", "Employee"],
+    },
+    {
+      name: "Detail BAPP",
+      path: "/dashboard/bapp",
+      icon: FileText,
+      roles: ["Admin", "HR Manager", "Department Head", "Employee"],
+    },
+    {
+      name: "Realisasi, Target & Cost Payroll",
+      path: "/dashboard/cost",
+      icon: Wallet,
+      roles: ["Admin", "HR Manager", "Department Head", "Employee"],
+    },
   ];
 
-  const navItems = allNavItems.filter(item => item.roles.includes(role));
+  const navItems = allNavItems.filter((item) => item.roles.includes(role));
+
+  // =========================================================
+  // SECONDARY MENU
+  // =========================================================
 
   const secondaryNav = [
-    { name: 'Settings', path: '/settings', icon: Settings },
-    { name: 'Profile', path: '/profile', icon: User },
+    {
+      name: "Settings",
+      path: "/settings",
+      icon: Settings,
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: User,
+    },
   ];
 
+  // =========================================================
+  // SIDEBAR CONTENT
+  // =========================================================
+
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-indigo-950 text-indigo-300 transition-all duration-300 select-none">
-      {/* Brand Header */}
-      <div className="p-6 flex items-center justify-between border-b border-indigo-900 shrink-0">
-        <NavLink
-          to="/dashboard"
-          onClick={onCloseMobile}
-          className="flex items-center gap-3 overflow-hidden"
-        >
-          <div className="h-8 w-8 bg-indigo-500 rounded-lg flex items-center justify-center font-bold text-white text-xl shrink-0">
-            S
-          </div>
-          {(!isCollapsed || isOpenMobile) && (
-            <span className="text-white font-bold text-xl tracking-tight truncate">
-              Stratos EMS
-            </span>
+    <div className="flex h-full select-none flex-col bg-white text-slate-700 transition-colors dark:bg-slate-950 dark:text-slate-200">
+      {/* =====================================================
+          BRAND
+      ====================================================== */}
+
+      <div className={cn("relative flex h-[72px] shrink-0 items-center border-b border-slate-200 dark:border-slate-800", isCollapsed && !isOpenMobile ? "justify-center" : "justify-between px-5")}>
+        <NavLink to="/dashboard/payroll" onClick={onCloseMobile} className="flex items-center">
+          {isCollapsed && !isOpenMobile ? (
+            /* COLLAPSED BRAND */
+
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#6F1733]">
+              <span className="text-xl font-bold text-white">i</span>
+            </div>
+          ) : (
+            /* EXPANDED BRAND */
+
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#6F1733]">
+                <span className="text-xl font-bold text-white">i</span>
+              </div>
+
+              <div className="leading-none">
+                <div className="text-[19px] font-bold tracking-tight text-slate-800 dark:text-slate-100">infomedia</div>
+
+                <div className="mt-1 text-[7px] font-medium tracking-wide text-slate-400 dark:text-slate-500">Your Digital CX Partner</div>
+              </div>
+            </div>
           )}
         </NavLink>
 
+        {/* =====================================================
+            COLLAPSE BUTTON
+        ====================================================== */}
+
         <button
+          type="button"
           onClick={onToggleCollapse}
-          className="hidden lg:flex p-1.5 rounded-lg text-indigo-300 hover:text-white hover:bg-indigo-900 transition-colors"
-          title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+          className={cn(
+            "hidden h-7 w-7 items-center justify-center rounded-md transition-colors lg:flex",
+
+            isCollapsed && !isOpenMobile
+              ? "absolute -right-3 top-1/2 z-10 -translate-y-1/2 border border-slate-200 bg-white text-slate-500 shadow-sm hover:text-[#6F1733] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-[#D98AA3]"
+              : "text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200",
+          )}
+          title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+          aria-label={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         >
-          {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+          {isCollapsed ? <ChevronRight className="h-3.5 w-3.5" /> : <ChevronLeft className="h-3.5 w-3.5" />}
         </button>
       </div>
 
-      {/* Navigation Menu */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 custom-scrollbar">
+      {/* =====================================================
+          NAVIGATION
+      ====================================================== */}
+
+      <div className="custom-scrollbar flex-1 overflow-y-auto px-3 py-5">
+        {/* =====================================================
+            MAIN MENU
+        ====================================================== */}
+
         <div>
-          {(!isCollapsed || isOpenMobile) && (
-            <div className="px-3 pb-2 text-[10px] uppercase tracking-wider text-indigo-400 font-bold">
-              Main Menu
-            </div>
-          )}
+          {(!isCollapsed || isOpenMobile) && <div className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Dashboard</div>}
+
           <nav className="space-y-1">
-            {navItems.map(item => {
+            {navItems.map((item) => {
               const Icon = item.icon;
+
               return (
                 <NavLink
                   key={item.path}
                   to={item.path}
                   onClick={onCloseMobile}
+                  title={isCollapsed && !isOpenMobile ? item.name : undefined}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors group',
-                      isActive
-                        ? 'bg-indigo-800/50 text-white'
-                        : 'text-indigo-300 hover:text-white hover:bg-indigo-900/40'
+                      "group relative flex items-center rounded-lg transition-all duration-200",
+
+                      isCollapsed && !isOpenMobile ? "h-11 justify-center" : "min-h-11 px-3 py-2",
+
+                      /*
+                       * ACTIVE MENU
+                       *
+                       * LIGHT  = black background + white text
+                       * DARK   = white background + black text
+                       */
+
+                      isActive ? "bg-black text-white shadow-sm dark:bg-white dark:text-black" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100",
                     )
                   }
-                  title={isCollapsed && !isOpenMobile ? item.name : undefined}
                 >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <Icon className="w-5 h-5 shrink-0 opacity-80 group-hover:opacity-100" />
-                    {(!isCollapsed || isOpenMobile) && (
-                      <span className="truncate">{item.name}</span>
-                    )}
-                  </div>
-                  {(!isCollapsed || isOpenMobile) && item.badge && (
-                    <span
-                      className={cn(
-                        'px-2 py-0.5 text-[10px] font-bold rounded-full uppercase tracking-wider',
-                        item.badge.includes('Pending')
-                          ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                          : 'bg-indigo-900/80 text-indigo-200 border border-indigo-700/50'
-                      )}
-                    >
-                      {item.badge}
-                    </span>
+                  {({ isActive }) => (
+                    <>
+                      {/* =================================================
+                          ACTIVE INDICATOR
+                      ================================================== */}
+
+                      {isActive && <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-[#D98AA3]" />}
+
+                      {/* =================================================
+                          ICON + TEXT
+                      ================================================== */}
+
+                      <div className={cn("flex min-w-0 items-center", isCollapsed && !isOpenMobile ? "justify-center" : "gap-3")}>
+                        {/* ICON */}
+
+                        <Icon
+                          className={cn(
+                            "h-4 w-4 shrink-0",
+
+                            isActive ? "text-white dark:text-black" : "text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300",
+                          )}
+                        />
+
+                        {/* TEXT */}
+
+                        {(!isCollapsed || isOpenMobile) && <span className={cn("min-w-0 text-[13px] leading-[18px]", isActive ? "font-semibold" : "font-medium")}>{item.name}</span>}
+                      </div>
+                    </>
                   )}
                 </NavLink>
               );
@@ -140,32 +194,61 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </nav>
         </div>
 
-        <div>
-          {(!isCollapsed || isOpenMobile) && (
-            <div className="pt-2 pb-2 px-3 text-[10px] uppercase tracking-wider text-indigo-400 font-bold">
-              Management
-            </div>
-          )}
+        {/* =====================================================
+            SECONDARY MENU
+        ====================================================== */}
+
+        <div className="mt-7 border-t border-slate-100 pt-5 dark:border-slate-800">
+          {(!isCollapsed || isOpenMobile) && <div className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Lainnya</div>}
+
           <nav className="space-y-1">
-            {secondaryNav.map(item => {
+            {secondaryNav.map((item) => {
               const Icon = item.icon;
+
               return (
                 <NavLink
                   key={item.path}
                   to={item.path}
                   onClick={onCloseMobile}
+                  title={isCollapsed && !isOpenMobile ? item.name : undefined}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors group',
-                      isActive
-                        ? 'bg-indigo-800/50 text-white'
-                        : 'text-indigo-300 hover:text-white hover:bg-indigo-900/40'
+                      "group relative flex items-center rounded-lg transition-all duration-200",
+
+                      isCollapsed && !isOpenMobile ? "h-11 justify-center" : "min-h-10 gap-3 px-3 py-2",
+
+                      /*
+                       * ACTIVE MENU
+                       *
+                       * LIGHT  = black
+                       * DARK   = white
+                       */
+
+                      isActive ? "bg-black text-white shadow-sm dark:bg-white dark:text-black" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100",
                     )
                   }
-                  title={isCollapsed && !isOpenMobile ? item.name : undefined}
                 >
-                  <Icon className="w-5 h-5 shrink-0 opacity-80 group-hover:opacity-100" />
-                  {(!isCollapsed || isOpenMobile) && <span className="truncate">{item.name}</span>}
+                  {({ isActive }) => (
+                    <>
+                      {/* ACTIVE INDICATOR */}
+
+                      {isActive && <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-[#D98AA3]" />}
+
+                      {/* ICON */}
+
+                      <Icon
+                        className={cn(
+                          "h-4 w-4 shrink-0",
+
+                          isActive ? "text-white dark:text-black" : "text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300",
+                        )}
+                      />
+
+                      {/* TEXT */}
+
+                      {(!isCollapsed || isOpenMobile) && <span className={cn("text-[13px] leading-[18px]", isActive ? "font-semibold" : "font-medium")}>{item.name}</span>}
+                    </>
+                  )}
                 </NavLink>
               );
             })}
@@ -173,41 +256,54 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
 
-      {/* User Footer */}
-      <div className="p-4 border-t border-indigo-900 mt-auto shrink-0">
+      {/* =====================================================
+          USER FOOTER
+      ====================================================== */}
+
+      <div className="shrink-0 border-t border-slate-200 p-3 dark:border-slate-800">
         <div
           className={cn(
-            'flex items-center gap-3 p-2 rounded-lg bg-indigo-900/30 border border-indigo-900/50',
-            isCollapsed && !isOpenMobile ? 'justify-center' : 'justify-between'
+            "flex items-center rounded-lg bg-slate-50 dark:bg-slate-900",
+
+            isCollapsed && !isOpenMobile ? "justify-center p-2" : "gap-3 px-2.5 py-2",
           )}
         >
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="relative shrink-0">
-              <img
-                src={user?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'}
-                alt=""
-                className="h-8 w-8 rounded-full bg-slate-300 object-cover"
-              />
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-indigo-950" />
-            </div>
-            {(!isCollapsed || isOpenMobile) && (
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-white truncate">{user?.name || 'Alex Thompson'}</p>
-                <p className="text-[10px] text-indigo-400 truncate">{user?.role || 'Senior HR Admin'}</p>
-              </div>
-            )}
+          {/* =================================================
+              AVATAR
+          ================================================== */}
+
+          <div className="relative shrink-0">
+            <img src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"} alt="" className="h-8 w-8 rounded-full bg-slate-200 object-cover dark:bg-slate-700" />
+
+            <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-slate-900" />
           </div>
+
+          {/* =================================================
+              USER INFO
+          ================================================== */}
+
+          {(!isCollapsed || isOpenMobile) && (
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-semibold text-slate-700 dark:text-slate-200">{user?.name || "Admin"}</p>
+            </div>
+          )}
+
+          {/* =================================================
+              LOGOUT
+          ================================================== */}
 
           {(!isCollapsed || isOpenMobile) && (
             <button
+              type="button"
               onClick={() => {
                 logout();
-                navigate('/login');
+                navigate("/login");
               }}
-              className="p-1.5 rounded-lg text-indigo-400 hover:text-white hover:bg-indigo-800/50 transition-colors shrink-0"
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-slate-200 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-200"
               title="Logout"
+              aria-label="Logout"
             >
-              <LogOut className="w-4 h-4" />
+              <LogOut className="h-4 w-4" />
             </button>
           )}
         </div>
@@ -215,28 +311,42 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </div>
   );
 
+  // ===========================================================
+  // RETURN
+  // ===========================================================
+
   return (
     <>
-      {/* Desktop Sidebar */}
+      {/* =====================================================
+          DESKTOP SIDEBAR
+      ====================================================== */}
+
       <aside
         className={cn(
-          'hidden lg:block fixed top-0 left-0 bottom-0 z-40 transition-all duration-300 border-r border-indigo-900',
-          isCollapsed ? 'w-20' : 'w-64'
+          "fixed bottom-0 left-0 top-0 z-40 hidden border-r border-slate-200 bg-white transition-all duration-300 dark:border-slate-800 dark:bg-slate-950 lg:block",
+
+          // Expanded = 256px
+          // Collapsed = 80px
+
+          isCollapsed ? "w-20" : "w-64",
         )}
       >
         {sidebarContent}
       </aside>
 
-      {/* Mobile Drawer Backdrop & Sidebar */}
+      {/* =====================================================
+          MOBILE SIDEBAR
+      ====================================================== */}
+
       {isOpenMobile && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            onClick={onCloseMobile}
-            className="fixed inset-0 bg-indigo-950/70 backdrop-blur-xs transition-opacity"
-          />
-          <aside className="fixed top-0 bottom-0 left-0 w-72 bg-indigo-950 shadow-2xl z-10 border-r border-indigo-900">
-            {sidebarContent}
-          </aside>
+          {/* Overlay */}
+
+          <div onClick={onCloseMobile} className="fixed inset-0 bg-black/40 backdrop-blur-[1px] dark:bg-black/60" />
+
+          {/* Drawer */}
+
+          <aside className="fixed bottom-0 left-0 top-0 z-10 w-72 border-r border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-950">{sidebarContent}</aside>
         </div>
       )}
     </>

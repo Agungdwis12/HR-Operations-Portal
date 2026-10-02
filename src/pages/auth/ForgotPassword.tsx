@@ -25,7 +25,7 @@ export const ForgotPassword: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { email: 'alexander.vance@nexuscorp.com' },
+    defaultValues: { email: 'agung@gmail.com' },
   });
 
   const onSubmit = async (data: FormData) => {

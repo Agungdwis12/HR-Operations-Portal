@@ -29,7 +29,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     return (
       <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex flex-col items-center justify-center space-y-3">
         {spinner}
-        <p className="text-sm font-medium text-white tracking-wide">Loading Nexus EMS...</p>
+        <p className="text-sm font-medium text-white tracking-wide"> Memuat data ...</p>
       </div>
     );
   }

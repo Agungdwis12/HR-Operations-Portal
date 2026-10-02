@@ -29,8 +29,8 @@ export const Login: React.FC = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'alexander.vance@nexuscorp.com',
-      password: 'password123',
+      email: "agung@gmail.com",
+      password: "password123",
       rememberMe: true,
     },
   });
@@ -38,7 +38,7 @@ export const Login: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     try {
       await login(data.email, data.password);
-      toast.success('Successfully logged in! Welcome to Nexus EMS.');
+      toast.success('Successfully logged in!.');
       navigate('/dashboard');
     } catch {
       toast.error('Invalid credentials. Please try again.');
